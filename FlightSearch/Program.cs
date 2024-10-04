@@ -1,33 +1,14 @@
-﻿using RequestNameSpace;
-using ResponseNameSpace;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
+﻿using RequestNs;
+using ResponseNs;
+using SearchModuleNs;
 
-public class FlightSearch
-{
-    static HttpClient client = new HttpClient();
+Date departDate = new Date(DateTime.Parse("2024-11-01"));
 
-    public async Task<ResponseModel> postRequest(string uri, RequestModel request)
-    {
-        string content = JsonSerializer.Serialize(request);
-        HttpResponseMessage response = await client.PostAsJsonAsync(uri, content);
+SearchModule search = new SearchModule();
+RequestModel request = search.getRequestModel("FRA", "FUK", departDate);
 
-        try
-        {
-            response.EnsureSuccessStatusCode();
-        } 
-        catch (Exception ex)
-        {
-            Console.WriteLine($"{ex.ToString()}");
-            return null;
-        }
+await search.postRequest(search.createUrl, request);
 
-        ResponseModel responseModel = await response.Content.ReadFromJsonAsync<ResponseModel>();
-
-        return responseModel ?? null;
-    }
-}
 
 
 

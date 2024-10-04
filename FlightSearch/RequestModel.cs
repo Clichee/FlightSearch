@@ -1,25 +1,39 @@
-﻿namespace RequestNameSpace;
+﻿using System.Text.Json.Serialization;
+
+namespace RequestNs;
+
+public class RequestQuery 
+{
+    [JsonPropertyName("query")]
+    public RequestModel query { get; set; }
+}
 
 public class RequestModel
 {
     public string market { get; set; } = "DE";
     public string locale { get; set; } = "de-DE";
     public string currency { get; set; } = "EUR";
-    public List<queryLeg> queryLegs { get; set; }
+    public List<QueryLeg> queryLegs { get; set; }
     public int adults { get; set; } = 1;
+    public string cabinClass { get; set; } = "CABIN_CLASS_UNSPECIFIED";
 }
 
-public class queryLeg
+public class QueryLeg
 {
-    public placeId originPlaceId { get; set; }
-    public placeId destinationPlaceId { get; set; }
+    public PlaceId originPlaceId { get; set; }
+    public PlaceId destinationPlaceId { get; set; }
     public Date date { get; set; } = new Date(DateTime.Today);
 }
 
-public class placeId
+public class PlaceId
 {
     public string iata { get; set; }
     public string entityId { get; set; }
+
+    public PlaceId(string iata)
+    {
+        this.iata = iata;
+    }
 }
 
 public class Date

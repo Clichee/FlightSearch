@@ -1,4 +1,4 @@
-﻿namespace ResponseNameSpace;
+﻿namespace ResponseNs;
 public class ResponseModel
 {
 
