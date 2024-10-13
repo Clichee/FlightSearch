@@ -1,21 +1,24 @@
-﻿using System.Text.Json.Serialization;
-
-namespace RequestNs;
-
-public class RequestQuery 
-{
-    [JsonPropertyName("query")]
-    public RequestModel query { get; set; }
-}
+﻿namespace RequestNs;
 
 public class RequestModel
 {
     public string market { get; set; } = "DE";
     public string locale { get; set; } = "de-DE";
     public string currency { get; set; } = "EUR";
-    public List<QueryLeg> queryLegs { get; set; }
+    public List<Flight> flights { get; set; }
     public int adults { get; set; } = 1;
-    public string cabinClass { get; set; } = "CABIN_CLASS_UNSPECIFIED";
+    public int children { get; set; } = 0;
+    public int infants { get; set; } = 0;
+    public string cabinClass { get; set; } = "economy";
+    public List<string> stops { get; set; } = ["direct", "1stop"];
+    public string sort { get; set; } = "cheapest_first";
+}
+
+public class Flight
+{
+    public string fromEntityId { get; set; }
+    public string toEntityId { get; set; }
+    public string departDate { get; set; }
 }
 
 public class QueryLeg
